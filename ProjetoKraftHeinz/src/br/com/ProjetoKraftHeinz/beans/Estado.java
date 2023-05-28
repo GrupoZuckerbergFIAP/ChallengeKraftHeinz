@@ -1,5 +1,7 @@
 package br.com.ProjetoKraftHeinz.beans;
 
+import java.util.Objects;
+
 public class Estado {
 
     private long codigo;
@@ -10,7 +12,7 @@ public class Estado {
 
     private String codigoIbge ;
 
-    private long idPais;
+    private Pais pais;
 
     public long getCodigo() {
         return codigo;
@@ -44,23 +46,46 @@ public class Estado {
         this.codigoIbge = codigoIbge;
     }
 
-    public long getIdPais() {
-        return idPais;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setIdPais(long idPais) {
-        this.idPais = idPais;
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estado estado = (Estado) o;
+        return codigo == estado.codigo && Objects.equals(descricaoEstado, estado.descricaoEstado) && Objects.equals(sigla, estado.sigla) && Objects.equals(codigoIbge, estado.codigoIbge) && Objects.equals(pais, estado.pais);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo, descricaoEstado, sigla, codigoIbge, pais);
     }
 
     public Estado() {
     }
 
-    public Estado(long codigo, String descricaoEstado, String sigla, String codigoIbge  , long idPais) {
+    public Estado(long codigo, String descricaoEstado, String sigla, String codigoIbge, Pais pais) {
         this.codigo = codigo;
         this.descricaoEstado = descricaoEstado;
         this.sigla = sigla;
         this.codigoIbge = codigoIbge;
-        this.idPais = idPais;
+        this.pais = pais;
     }
 
+    @Override
+    public String toString() {
+        return "Estado{" +
+                "codigo=" + codigo +
+                ", descricaoEstado='" + descricaoEstado + '\'' +
+                ", sigla='" + sigla + '\'' +
+                ", codigoIbge='" + codigoIbge + '\'' +
+                ", pais=" + pais +
+                '}';
+    }
 }

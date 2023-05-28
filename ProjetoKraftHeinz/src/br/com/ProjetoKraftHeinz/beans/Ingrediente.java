@@ -8,9 +8,9 @@ public class Ingrediente {
 
     private String descricaoIngrediente;
 
-    private long idFornecedor;
+    private Fornecedor fornecedor;
 
-    private long idTipoIngrediente;
+    private TipoIngrediente tipoIngrediente;
 
     public long getIngrediente() {
         return ingrediente;
@@ -28,20 +28,20 @@ public class Ingrediente {
         this.descricaoIngrediente = descricaoIngrediente;
     }
 
-    public long getIdFornecedor() {
-        return idFornecedor;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setIdFornecedor(long idFornecedor) {
-        this.idFornecedor = idFornecedor;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
-    public long getIdTipoIngrediente() {
-        return idTipoIngrediente;
+    public TipoIngrediente getTipoIngrediente() {
+        return tipoIngrediente;
     }
 
-    public void setIdTipoIngrediente(long idTipoIngrediente) {
-        this.idTipoIngrediente = idTipoIngrediente;
+    public void setTipoIngrediente(TipoIngrediente tipoIngrediente) {
+        this.tipoIngrediente = tipoIngrediente;
     }
 
     @Override
@@ -49,22 +49,23 @@ public class Ingrediente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingrediente that = (Ingrediente) o;
-        return ingrediente == that.ingrediente && idFornecedor == that.idFornecedor && idTipoIngrediente == that.idTipoIngrediente && Objects.equals(descricaoIngrediente, that.descricaoIngrediente);
+        return ingrediente == that.ingrediente && Objects.equals(descricaoIngrediente, that.descricaoIngrediente) && Objects.equals(fornecedor, that.fornecedor) && Objects.equals(tipoIngrediente, that.tipoIngrediente);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingrediente, descricaoIngrediente, idFornecedor, idTipoIngrediente);
+        return Objects.hash(ingrediente, descricaoIngrediente, fornecedor, tipoIngrediente);
     }
 
     public Ingrediente() {
     }
 
-    public Ingrediente(long ingrediente, String descricaoIngrediente, long idFornecedor, long idTipoIngrediente) {
+    public Ingrediente(long ingrediente, String descricaoIngrediente, Fornecedor fornecedor, TipoIngrediente tipoIngrediente) {
         this.ingrediente = ingrediente;
         this.descricaoIngrediente = descricaoIngrediente;
-        this.idFornecedor = idFornecedor;
-        this.idTipoIngrediente = idTipoIngrediente;
+        this.fornecedor = fornecedor;
+        this.tipoIngrediente = tipoIngrediente;
     }
-
 }
+
+

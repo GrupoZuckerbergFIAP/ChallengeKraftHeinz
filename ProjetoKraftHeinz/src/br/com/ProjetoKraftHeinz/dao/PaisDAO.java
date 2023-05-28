@@ -5,6 +5,7 @@ import br.com.ProjetoKraftHeinz.jdbc.DbManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.*;
@@ -40,5 +41,43 @@ public class PaisDAO {
             }
         }
 
+    }
+
+
+    public Pais getConsulta(long idPais){
+
+        Pais paisConsulta = new Pais();
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+
+        try{
+            conexao = DbManager.obterConexao();
+
+            stmt = conexao.prepareStatement("SELECT * FROM " + TABPAIS +" WHERE ID_PAIS= "
+                    + idPais);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+                int codigo = rs.getInt("ID_PAIS");
+                String descricaoPais = rs.getString("DS_PAIS");
+                String descricaoContinente = rs.getString("DS_CONTINENTE");
+
+
+                Pais pais = new Pais(codigo, descricaoPais,descricaoContinente );
+                paisConsulta  = pais;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return paisConsulta;
     }
 }

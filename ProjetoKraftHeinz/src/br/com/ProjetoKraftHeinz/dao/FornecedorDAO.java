@@ -2,7 +2,6 @@ package br.com.ProjetoKraftHeinz.dao;
 
 import br.com.ProjetoKraftHeinz.beans.Fornecedor;
 import br.com.ProjetoKraftHeinz.jdbc.DbManager;
-import br.com.ProjetoKraftHeinz.utils.ConverteData;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class FornecedorDAO {
     public void cadastrar(Fornecedor fornecedor) {
 
         PreparedStatement stmt = null;
+        int nResposta = 0;
 
         try {
             conexao = DbManager.obterConexao();
@@ -50,12 +50,15 @@ public class FornecedorDAO {
 
             if (fornecedor.getDataFim() != null){
                 stmt.setDate(7, fornecedor.getDataFim());
-                stmt.setLong(8, fornecedor.getCidadeFornecedor());
+                stmt.setLong(8, fornecedor.getCidade().getCodigo());
             }else{
-                stmt.setLong(7, fornecedor.getCidadeFornecedor());
+                stmt.setLong(7,fornecedor.getCidade().getCodigo() );
             }
 
-            stmt.executeUpdate();
+            nResposta = stmt.executeUpdate();
+            if (nResposta == 1){
+                System.out.println("Fornecedor inserida com sucesso...");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,8 +90,6 @@ public class FornecedorDAO {
                 String descricaoFornecedor = rs.getString("DS_FORNECEDOR");
                 String cnpj = rs.getString("TX_CNPJ");
 
-
-
                 Fornecedor fornecedor = new Fornecedor(codigo, descricaoFornecedor ,cnpj);
                 lista.add(fornecedor);
 
@@ -104,5 +105,50 @@ public class FornecedorDAO {
             }
         }
         return lista;
+    }
+
+    public Fornecedor getConsulta(long idFornecedor){
+
+        Fornecedor fornecedorConsulta = new Fornecedor();
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+
+        try{
+            conexao = DbManager.obterConexao();
+
+            stmt = conexao.prepareStatement("SELECT * FROM " + TABFORNECEDOR +" WHERE ID_FORNECEDOR= "
+                    + idFornecedor);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+                int codigo = rs.getInt("ID_FORNECEDOR");
+                String nmFornecedor = rs.getString("DS_FORNECEDOR");
+                String cnpj = rs.getString("TX_CNPJ");
+                String telefone = rs.getString("TX_TEL_CONTATO");
+                String nomeContato = rs.getString("NM_CONTATO");
+                String logradouro = rs.getString("DS_LOGRADOURO");
+                Date dataInicio = rs.getDate("DT_INICIO");
+                Date dataFim = rs.getDate("DT_FIM");
+                long cidade = rs.getLong("FK_ID_CIDADE");
+
+
+                //Cidade cidadeConsulta = new CidadeDAO().getConsulta(cidade);
+                Fornecedor fornecedor = new Fornecedor(codigo, nmFornecedor,cnpj ,telefone,
+                        nomeContato,logradouro,dataInicio,dataFim);
+                fornecedorConsulta= fornecedor;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return fornecedorConsulta;
     }
 }

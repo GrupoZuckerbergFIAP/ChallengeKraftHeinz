@@ -3,9 +3,7 @@ package br.com.ProjetoKraftHeinz.dao;
 import br.com.ProjetoKraftHeinz.beans.Estado;
 import br.com.ProjetoKraftHeinz.jdbc.DbManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.*;
 
@@ -27,7 +25,7 @@ public class EstadoDAO {
             stmt.setString(1, estado.getDescricaoEstado());
             stmt.setString(2, estado.getSigla());
             stmt.setString(3, estado.getCodigoIbge());
-            stmt.setLong(4, estado.getIdPais());
+            stmt.setLong(4, estado.getPais().getCodigo());
 
             stmt.executeUpdate();
 
@@ -41,5 +39,45 @@ public class EstadoDAO {
             }
         }
 
+    }
+
+    public Estado getConsulta(long idEstado){
+
+        Estado estadoConsulta = new Estado();
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+
+        try{
+            conexao = DbManager.obterConexao();
+
+            stmt = conexao.prepareStatement("SELECT * FROM " + TABESTADO +" WHERE ID_ESTADO= "
+                    + idEstado);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+                int codigo = rs.getInt("ID_ESTADO");
+                String descricaoEstado = rs.getString("DS_ESTADO");
+                String codSigla = rs.getString("CD_SIGLA");
+                String codIbge = rs.getString("CD_IBGE");
+                long idPais = rs.getLong("FK_ID_PAIS");
+
+
+                Estado estado = new Estado(codigo, descricaoEstado,codSigla ,codIbge,
+                        new PaisDAO().getConsulta(idPais));
+                estadoConsulta  = estado;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return estadoConsulta;
     }
 }

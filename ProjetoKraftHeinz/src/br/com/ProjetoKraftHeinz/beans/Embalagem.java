@@ -18,7 +18,10 @@ public class Embalagem {
 
     private String material;
 
-    private long idFornecedor;
+    private boolean reutilizavel;
+
+    private Fornecedor fornecedor;
+
 
     public long getIdEmbalagem() {
         return idEmbalagem;
@@ -76,12 +79,20 @@ public class Embalagem {
         this.material = material;
     }
 
-    public long getIdFornecedor() {
-        return idFornecedor;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setIdFornecedor(long idFornecedor) {
-        this.idFornecedor = idFornecedor;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public boolean isReutilizavel() {
+        return reutilizavel;
+    }
+
+    public void setReutilizavel(boolean reutilizavel) {
+        this.reutilizavel = reutilizavel;
     }
 
     @Override
@@ -89,18 +100,18 @@ public class Embalagem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Embalagem embalagem = (Embalagem) o;
-        return idEmbalagem == embalagem.idEmbalagem && Double.compare(embalagem.altura, altura) == 0 && Double.compare(embalagem.largura, largura) == 0 && Double.compare(embalagem.comprimento, comprimento) == 0 && idFornecedor == embalagem.idFornecedor && Objects.equals(dsEmbalagem, embalagem.dsEmbalagem) && Objects.equals(formato, embalagem.formato) && Objects.equals(material, embalagem.material);
+        return idEmbalagem == embalagem.idEmbalagem && Double.compare(embalagem.altura, altura) == 0 && Double.compare(embalagem.largura, largura) == 0 && Double.compare(embalagem.comprimento, comprimento) == 0 && Objects.equals(dsEmbalagem, embalagem.dsEmbalagem) && Objects.equals(formato, embalagem.formato) && Objects.equals(material, embalagem.material) && Objects.equals(fornecedor, embalagem.fornecedor);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idEmbalagem, dsEmbalagem, altura, largura, comprimento, formato, material, idFornecedor);
+        return Objects.hash(idEmbalagem, dsEmbalagem, altura, largura, comprimento, formato, material, fornecedor);
     }
 
     public Embalagem() {
     }
 
-    public Embalagem(long idEmbalagem, String dsEmbalagem, double altura, double largura, double comprimento, String formato, String material, long idFornecedor) {
+    public Embalagem(long idEmbalagem, String dsEmbalagem, double altura, double largura, double comprimento, String formato, String material) {
         this.idEmbalagem = idEmbalagem;
         this.dsEmbalagem = dsEmbalagem;
         this.altura = altura;
@@ -108,6 +119,29 @@ public class Embalagem {
         this.comprimento = comprimento;
         this.formato = formato;
         this.material = material;
-        this.idFornecedor = idFornecedor;
     }
+
+    public Embalagem(long idEmbalagem, String dsEmbalagem, double altura, double largura, double comprimento, String formato, String material, Fornecedor fornecedor) {
+        this.idEmbalagem = idEmbalagem;
+        this.dsEmbalagem = dsEmbalagem;
+        this.altura = altura;
+        this.largura = largura;
+        this.comprimento = comprimento;
+        this.formato = formato;
+        this.material = material;
+        this.fornecedor = fornecedor;
+    }
+
+    public Embalagem(long idEmbalagem, String dsEmbalagem, double altura, double largura, double comprimento, String formato, String material, boolean reutilizavel, Fornecedor fornecedor) {
+        this.idEmbalagem = idEmbalagem;
+        this.dsEmbalagem = dsEmbalagem;
+        this.altura = altura;
+        this.largura = largura;
+        this.comprimento = comprimento;
+        this.formato = formato;
+        this.material = material;
+        this.reutilizavel = reutilizavel;
+        this.fornecedor = fornecedor;
+    }
+
 }

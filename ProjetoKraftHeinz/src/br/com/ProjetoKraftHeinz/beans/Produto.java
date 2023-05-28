@@ -1,5 +1,7 @@
 package br.com.ProjetoKraftHeinz.beans;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Produto {
@@ -24,14 +26,13 @@ public class Produto {
 
     private String descricaoMarca;
 
-    private long tipoPeso;
+    private TipoPeso tipoPeso;
 
-    private long tipoCategoria;
+    private Categoria categoria;
 
-    private long idEmbalagem;
+    private Embalagem embalagem;
 
-
-
+    private List<ComposicaoNutricional> composicaoNutricional = new ArrayList<>();
 
     public long getIdProduto() {
         return idProduto;
@@ -113,56 +114,44 @@ public class Produto {
         this.descricaoMarca = descricaoMarca;
     }
 
-    public long getTipoPeso() {
+    public TipoPeso getTipoPeso() {
         return tipoPeso;
     }
 
-    public void setTipoPeso(long tipoPeso) {
+    public void setTipoPeso(TipoPeso tipoPeso) {
         this.tipoPeso = tipoPeso;
     }
 
-    public long getTipoCategoria() {
-        return tipoCategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setTipoCategoria(long tipoCategoria) {
-        this.tipoCategoria = tipoCategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public long getIdEmbalagem() {
-        return idEmbalagem;
+    public Embalagem getEmbalagem() {
+        return embalagem;
     }
 
-    public void setIdEmbalagem(long idEmbalagem) {
-        this.idEmbalagem = idEmbalagem;
+    public void setEmbalagem(Embalagem embalagem) {
+        this.embalagem = embalagem;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return idProduto == produto.idProduto && Double.compare(produto.valorCusto, valorCusto) == 0 &&
-                Double.compare(produto.valorVenda, valorVenda) == 0 && validadeDias == produto.validadeDias &&
-                Double.compare(produto.peso, peso) == 0 && quantidadePorcao == produto.quantidadePorcao &&
-                valorEnergetico == produto.valorEnergetico && tipoPeso == produto.tipoPeso &&
-                tipoCategoria == produto.tipoCategoria && Objects.equals(nomeProduto, produto.nomeProduto) &&
-                Objects.equals(descricaoProduto, produto.descricaoProduto) && Objects.equals(descricaoMarca,
-                produto.descricaoMarca);
+    public List<ComposicaoNutricional> getComposicaoNutricional() {
+        return composicaoNutricional;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idProduto, nomeProduto, valorCusto, valorVenda, validadeDias, peso, quantidadePorcao,
-                valorEnergetico, descricaoProduto, descricaoMarca, tipoPeso, tipoCategoria);
+    public void setComposicaoNutricional(List<ComposicaoNutricional> composicaoNutricional) {
+        this.composicaoNutricional = composicaoNutricional;
     }
 
     public Produto() {
     }
 
     public Produto(long idProduto, String nomeProduto, double valorCusto, double valorVenda, int validadeDias,
-                   double peso, int quantidadePorcao, int valorEnergetico, String descricaoProduto, String descricaoMarca,
-                   long tipoPeso, long tipoCategoria, long idEmbalagem) {
+                   double peso, int quantidadePorcao, int valorEnergetico, String descricaoProduto,
+                   String descricaoMarca, TipoPeso tipoPeso, Categoria categoria, Embalagem embalagem) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.valorCusto = valorCusto;
@@ -174,8 +163,8 @@ public class Produto {
         this.descricaoProduto = descricaoProduto;
         this.descricaoMarca = descricaoMarca;
         this.tipoPeso = tipoPeso;
-        this.tipoCategoria = tipoCategoria;
-        this.idEmbalagem = idEmbalagem;
+        this.categoria = categoria;
+        this.embalagem = embalagem;
     }
 
     @Override
@@ -192,8 +181,9 @@ public class Produto {
                 ", descricaoProduto='" + descricaoProduto + '\'' +
                 ", descricaoMarca='" + descricaoMarca + '\'' +
                 ", tipoPeso=" + tipoPeso +
-                ", tipoCategoria=" + tipoCategoria +
-                ", idEmbalagem=" + idEmbalagem +
+                ", categoria=" + categoria +
+                ", embalagem=" + embalagem +
+                ", composicaoNutricional=" + composicaoNutricional +
                 '}';
     }
 }

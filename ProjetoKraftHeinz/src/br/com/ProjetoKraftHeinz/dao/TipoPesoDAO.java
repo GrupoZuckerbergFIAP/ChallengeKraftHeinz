@@ -1,6 +1,5 @@
 package br.com.ProjetoKraftHeinz.dao;
 
-import br.com.ProjetoKraftHeinz.beans.TipoIngrediente;
 import br.com.ProjetoKraftHeinz.beans.TipoPeso;
 import br.com.ProjetoKraftHeinz.jdbc.DbManager;
 
@@ -11,8 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.SQTIPOPESO;
-import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.TABTIPOPESO;
+import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.*;
 
 
 public class TipoPesoDAO {
@@ -76,5 +74,41 @@ public class TipoPesoDAO {
             }
         }
         return lista;
+    }
+
+    public TipoPeso getConsulta(long idPeso){
+
+        TipoPeso tipoPesoConsulta = new TipoPeso();
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+
+        try{
+
+            conexao = DbManager.obterConexao();
+
+            stmt = conexao.prepareStatement("SELECT * FROM " + TABTIPOPESO +" WHERE ID_PESO= "
+                    + idPeso);
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                int codigo = rs.getInt("ID_PESO");
+                String descricaoTipoPeso = rs.getString("DS_PESO");
+
+
+                TipoPeso tipoPeso = new TipoPeso(codigo, descricaoTipoPeso );
+                tipoPesoConsulta = tipoPeso;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return tipoPesoConsulta;
     }
 }

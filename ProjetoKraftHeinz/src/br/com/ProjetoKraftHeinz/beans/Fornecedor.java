@@ -22,7 +22,7 @@ public class Fornecedor {
 
     private Date dataFim;
 
-    private long cidadeFornecedor;
+    private Cidade cidade;
 
     public long getIdFornecedor() {
         return idFornecedor;
@@ -88,12 +88,12 @@ public class Fornecedor {
         this.dataFim = dataFim;
     }
 
-    public long getCidadeFornecedor() {
-        return cidadeFornecedor;
+    public Cidade getCidade() {
+        return cidade;
     }
 
-    public void setCidadeFornecedor(long cidadeFornecedor) {
-        this.cidadeFornecedor = cidadeFornecedor;
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 
     @Override
@@ -101,44 +101,12 @@ public class Fornecedor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fornecedor that = (Fornecedor) o;
-        return idFornecedor == that.idFornecedor && cidadeFornecedor == that.cidadeFornecedor && Objects.equals(nomeFornecedor, that.nomeFornecedor) && Objects.equals(cnpj, that.cnpj) && Objects.equals(telefone, that.telefone) && Objects.equals(nomeContato, that.nomeContato) && Objects.equals(logradouro, that.logradouro) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim);
+        return idFornecedor == that.idFornecedor && Objects.equals(nomeFornecedor, that.nomeFornecedor) && Objects.equals(cnpj, that.cnpj) && Objects.equals(telefone, that.telefone) && Objects.equals(nomeContato, that.nomeContato) && Objects.equals(logradouro, that.logradouro) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(cidade, that.cidade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idFornecedor, nomeFornecedor, cnpj, telefone, nomeContato, logradouro, dataInicio, dataFim, cidadeFornecedor);
-    }
-
-    public Fornecedor() {
-    }
-
-    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio, Date dataFim, long cidadeFornecedor) {
-        this.idFornecedor = idFornecedor;
-        this.nomeFornecedor = nomeFornecedor;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.nomeContato = nomeContato;
-        this.logradouro = logradouro;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.cidadeFornecedor = cidadeFornecedor;
-    }
-
-    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio, long cidadeFornecedor) {
-        this.idFornecedor = idFornecedor;
-        this.nomeFornecedor = nomeFornecedor;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.nomeContato = nomeContato;
-        this.logradouro = logradouro;
-        this.dataInicio = dataInicio;
-        this.cidadeFornecedor = cidadeFornecedor;
-    }
-
-    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj) {
-        this.idFornecedor = idFornecedor;
-        this.nomeFornecedor = nomeFornecedor;
-        this.cnpj = cnpj;
+        return Objects.hash(idFornecedor, nomeFornecedor, cnpj, telefone, nomeContato, logradouro, dataInicio, dataFim, cidade);
     }
 
     public String listarConsulta() {
@@ -149,18 +117,57 @@ public class Fornecedor {
                 '}';
     }
 
-    @Override
-    public String toString() {
-        return "Fornecedor{" +
-                "idFornecedor=" + idFornecedor +
-                ", nomeFornecedor='" + nomeFornecedor + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", nomeContato='" + nomeContato + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", dataInicio=" + dataInicio +
-                ", dataFim=" + dataFim +
-                ", cidadeFornecedor=" + cidadeFornecedor +
-                '}';
+    public Fornecedor() {
+    }
+
+
+    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio) {
+        this.idFornecedor = idFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.nomeContato = nomeContato;
+        this.logradouro = logradouro;
+        this.dataInicio = dataInicio;
+    }
+
+    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio, Date dataFim) {
+        this.idFornecedor = idFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.nomeContato = nomeContato;
+        this.logradouro = logradouro;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+    }
+
+    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj) {
+        this.idFornecedor = idFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.cnpj = cnpj;
+    }
+
+    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio, Cidade cidade) {
+        this.idFornecedor = idFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.nomeContato = nomeContato;
+        this.logradouro = logradouro;
+        this.dataInicio = dataInicio;
+        this.cidade = cidade;
+    }
+
+    public Fornecedor(long idFornecedor, String nomeFornecedor, String cnpj, String telefone, String nomeContato, String logradouro, Date dataInicio, Date dataFim, Cidade cidade) {
+        this.idFornecedor = idFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.cnpj = cnpj;
+        this.telefone = telefone;
+        this.nomeContato = nomeContato;
+        this.logradouro = logradouro;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.cidade = cidade;
     }
 }

@@ -10,11 +10,11 @@ public class ComposicaoNutricional {
 
     private double percentualDiario;
 
-    private long idProduto;
+    private Produto produto;
 
-    private long idNutriente;
+    private Nutriente nutriente;
 
-    private long idPeso;
+    private TipoPeso tipoPeso;
 
     public long getIdComposicao() {
         return idComposicao;
@@ -40,28 +40,40 @@ public class ComposicaoNutricional {
         this.percentualDiario = percentualDiario;
     }
 
-    public long getIdProduto() {
-        return idProduto;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setIdProduto(long idProduto) {
-        this.idProduto = idProduto;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
-    public long getIdNutriente() {
-        return idNutriente;
+    public Nutriente getNutriente() {
+        return nutriente;
     }
 
-    public void setIdNutriente(long idNutriente) {
-        this.idNutriente = idNutriente;
+    public void setNutriente(Nutriente nutriente) {
+        this.nutriente = nutriente;
     }
 
-    public long getIdPeso() {
-        return idPeso;
+    public TipoPeso getTipoPeso() {
+        return tipoPeso;
     }
 
-    public void setIdPeso(long idPeso) {
-        this.idPeso = idPeso;
+    public void setTipoPeso(TipoPeso tipoPeso) {
+        this.tipoPeso = tipoPeso;
+    }
+
+    public ComposicaoNutricional() {
+    }
+
+    public ComposicaoNutricional(long idComposicao, double peso, double percentualDiario, Produto produto, Nutriente nutriente, TipoPeso tipoPeso) {
+        this.idComposicao = idComposicao;
+        this.peso = peso;
+        this.percentualDiario = percentualDiario;
+        this.produto = produto;
+        this.nutriente = nutriente;
+        this.tipoPeso = tipoPeso;
     }
 
     @Override
@@ -69,24 +81,12 @@ public class ComposicaoNutricional {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ComposicaoNutricional that = (ComposicaoNutricional) o;
-        return idComposicao == that.idComposicao && Double.compare(that.peso, peso) == 0 && Double.compare(that.percentualDiario, percentualDiario) == 0 && idProduto == that.idProduto && idNutriente == that.idNutriente && idPeso == that.idPeso;
+        return idComposicao == that.idComposicao && Double.compare(that.peso, peso) == 0 && Double.compare(that.percentualDiario, percentualDiario) == 0 && Objects.equals(produto, that.produto) && Objects.equals(nutriente, that.nutriente) && Objects.equals(tipoPeso, that.tipoPeso);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idComposicao, peso, percentualDiario, idProduto, idNutriente, idPeso);
-    }
-
-    public ComposicaoNutricional() {
-    }
-
-    public ComposicaoNutricional(long idComposicao, double peso, double percentualDiario, long idProduto, long idNutriente, long idPeso) {
-        this.idComposicao = idComposicao;
-        this.peso = peso;
-        this.percentualDiario = percentualDiario;
-        this.idProduto = idProduto;
-        this.idNutriente = idNutriente;
-        this.idPeso = idPeso;
+        return Objects.hash(idComposicao, peso, percentualDiario, produto, nutriente, tipoPeso);
     }
 
     @Override
@@ -95,9 +95,9 @@ public class ComposicaoNutricional {
                 "idComposicao=" + idComposicao +
                 ", peso=" + peso +
                 ", percentualDiario=" + percentualDiario +
-                ", idProduto=" + idProduto +
-                ", idNutriente=" + idNutriente +
-                ", idPeso=" + idPeso +
+                ", produto=" + produto +
+                ", nutriente=" + nutriente +
+                ", tipoPeso=" + tipoPeso +
                 '}';
     }
 }

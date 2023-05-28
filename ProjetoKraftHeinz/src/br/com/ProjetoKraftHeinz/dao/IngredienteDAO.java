@@ -1,8 +1,7 @@
 package br.com.ProjetoKraftHeinz.dao;
 
-import br.com.ProjetoKraftHeinz.beans.Embalagem;
+
 import br.com.ProjetoKraftHeinz.beans.Ingrediente;
-import br.com.ProjetoKraftHeinz.beans.Produto;
 import br.com.ProjetoKraftHeinz.jdbc.DbManager;
 
 import java.sql.Connection;
@@ -30,8 +29,8 @@ public class IngredienteDAO {
             stmt = conexao.prepareStatement(sql);
 
             stmt.setString(1, ingrediente.getDescricaoIngrediente());
-            stmt.setLong(2,ingrediente.getIdFornecedor() );
-            stmt.setLong(3,ingrediente.getIdTipoIngrediente());
+            stmt.setLong(2,ingrediente.getFornecedor().getIdFornecedor() );
+            stmt.setLong(3,ingrediente.getTipoIngrediente().getIdTipoIngrediente());
 
             stmt.executeUpdate();
 
@@ -68,7 +67,8 @@ public class IngredienteDAO {
                 long idTipoIngrediente = rs.getLong("FK_ID_TIPO_INGREDIENTE");
 
 
-                Ingrediente ingrediente = new Ingrediente(codigo, descricaoIngrediente , idFornecedor, idTipoIngrediente);
+                Ingrediente ingrediente = new Ingrediente(codigo, descricaoIngrediente , new FornecedorDAO().getConsulta(idFornecedor),
+                        new TipoIngredienteDAO().getConsulta(idTipoIngrediente));
                 ingredienteConsulta = ingrediente;
             }
 

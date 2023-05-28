@@ -5,10 +5,12 @@ import br.com.ProjetoKraftHeinz.jdbc.DbManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.SQCATEGORIA;
-import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.TABCATEGORIA;
+import static br.com.ProjetoKraftHeinz.constantes.TabelaSistema.*;
 
 public class CategoriaDAO {
 
@@ -37,7 +39,73 @@ public class CategoriaDAO {
                 e.printStackTrace();
             }
         }
+    }
 
+    public List<Categoria> getListaConsulta(){
+
+        List<Categoria> listaCategoria = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try{
+
+            conexao = DbManager.obterConexao();
+
+            String sql = "SELECT * FROM " + TABCATEGORIA + " ORDER BY ID_CATEGORIA ";
+            stmt = conexao.prepareStatement(sql );
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                int codigo = rs.getInt("ID_CATEGORIA");
+                String descricaoCategoria = rs.getString("DS_CATEGORIA");
+                Categoria categoria = new Categoria(codigo, descricaoCategoria );
+                listaCategoria.add(categoria);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaCategoria;
+    }
+
+    public Categoria getConsulta(long idCategoria){
+
+        Categoria categoriaConsulta = new Categoria();
+        PreparedStatement stmt = null;
+
+        ResultSet rs = null;
+
+        try{
+            conexao = DbManager.obterConexao();
+
+            stmt = conexao.prepareStatement("SELECT * FROM " + TABCATEGORIA +" WHERE ID_CATEGORIA= "
+                    + idCategoria);
+            rs = stmt.executeQuery();
+            while (rs.next()){
+                int codigo = rs.getInt("ID_CATEGORIA");
+                String descricaoCategoria = rs.getString("DS_CATEGORIA");
+
+
+                Categoria categoria = new Categoria(codigo, descricaoCategoria );
+                categoriaConsulta= categoria;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return categoriaConsulta;
     }
 }
 

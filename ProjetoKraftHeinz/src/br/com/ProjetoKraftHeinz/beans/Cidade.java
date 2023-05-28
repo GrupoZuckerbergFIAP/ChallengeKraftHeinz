@@ -10,7 +10,7 @@ public class Cidade {
 
     private String codigoIbge;
 
-    private long idEstado;
+    private Estado estado;
 
     public long getCodigo() {
         return codigo;
@@ -36,12 +36,12 @@ public class Cidade {
         this.codigoIbge = codigoIbge;
     }
 
-    public long getIdEstado() {
-        return idEstado;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setIdEstado(long idEstado) {
-        this.idEstado = idEstado;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -49,22 +49,36 @@ public class Cidade {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cidade cidade = (Cidade) o;
-        return codigo == cidade.codigo && idEstado == cidade.idEstado && Objects.equals(descricaoCidade, cidade.descricaoCidade) && Objects.equals(codigoIbge, cidade.codigoIbge);
+        return codigo == cidade.codigo && Objects.equals(descricaoCidade, cidade.descricaoCidade) && Objects.equals(codigoIbge, cidade.codigoIbge) && Objects.equals(estado, cidade.estado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, descricaoCidade, codigoIbge, idEstado);
+        return Objects.hash(codigo, descricaoCidade, codigoIbge, estado);
     }
 
     public Cidade() {
     }
 
-    public Cidade(long codigo, String descricaoCidade, String codigoIbge, long idEstado) {
+    public Cidade(long codigo, String descricaoCidade) {
+        this.codigo = codigo;
+        this.descricaoCidade = descricaoCidade;
+    }
+
+    public Cidade(long codigo, String descricaoCidade, String codigoIbge, Estado estado) {
         this.codigo = codigo;
         this.descricaoCidade = descricaoCidade;
         this.codigoIbge = codigoIbge;
-        this.idEstado = idEstado;
+        this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Cidade{" +
+                "codigo=" + codigo +
+                ", descricaoCidade='" + descricaoCidade + '\'' +
+                ", codigoIbge='" + codigoIbge + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
 }
